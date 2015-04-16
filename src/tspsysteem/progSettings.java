@@ -10,15 +10,8 @@ package tspsysteem;
  *
  * @author Tyrone
  */
-public class TSPsysteem {
+public class progSettings {
+   
     
-    
-    public static void main(String[] args) {   
-        TSP tsp = new TSP();
-        
-        
-        
-        
-    }
     
 }
