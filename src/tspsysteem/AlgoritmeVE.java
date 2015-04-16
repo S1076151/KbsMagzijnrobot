@@ -32,11 +32,7 @@ public class AlgoritmeVE extends Algoritme {
        ArrayList<Path> allPaths = new ArrayList<>();
        for (Product p1: positions.getPositions()){
            for (Product p2: positions.getPositions()){
-               allPaths.c
                    allPaths.add(CalculatePath(p1,p2));
-               else {
-                   System.out.println("ja");
-               }
            }
                
        }
@@ -49,7 +45,6 @@ public class AlgoritmeVE extends Algoritme {
     
     private Path CalculatePath(Product fromProduct, Product toProduct) {
         ProductLine line = new ProductLine(fromProduct, toProduct);
-        lines.add(line);
         Path path = new Path(line);
         int x1 = fromProduct.getxPosition();
         int y1 = fromProduct.getyPosition();
