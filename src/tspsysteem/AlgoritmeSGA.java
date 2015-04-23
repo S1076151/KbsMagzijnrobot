@@ -14,16 +14,29 @@ public class AlgoritmeSGA extends Algoritme{
     private final int down = 3;
     private final int left = 4;
     private final int pickUp  = 5;
+    private ArrayList<ProductLine> allLines = new ArrayList<>();
 
     public AlgoritmeSGA(String name,  Locations positions) {
         super(name);
         
     }
     
+    public void calculatePart1() {
+        
+    }
+    
     
     @Override
     public Route calculateRoute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Product p1:positions.getPositions()){
+            for (Product p2: positions.getPositions()){
+                if (!p1.equals(p2)){
+                    ProductLine line = new ProductLine(p1,p2, calculatePath(p1,p2));
+                    allLines.add(line);
+                }
+            }
+            
+        }
     }
     
     private Path calculatePath(Product fromProduct, Product toProduct) {
