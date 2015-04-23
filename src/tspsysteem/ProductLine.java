@@ -14,10 +14,12 @@ public class ProductLine {
     
     private Product fromProduct;
     private Product toProduct;
+    private Path path;
     
-    public ProductLine(Product fromProduct, Product toProduct){
+    public ProductLine(Product fromProduct, Product toProduct, Path path){
         this.fromProduct = fromProduct;
         this.toProduct = toProduct;
+        this.path = path;
     }
 
     public Product getFromProduct() {
@@ -27,6 +29,17 @@ public class ProductLine {
     public Product getToProduct() {
         return toProduct;
     }
+
+    public Path getPath() {
+        return path;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductLine{" + "fromProduct=" + fromProduct + ", toProduct=" + toProduct + '}';
+    }
+    
+    
     
     
 }

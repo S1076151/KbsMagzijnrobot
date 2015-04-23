@@ -9,23 +9,23 @@ package tspsysteem;
 import java.util.ArrayList;
 
 public class Path {
-    private ArrayList<Integer> moves;
-    private Product fromProduct;
-    private Product toProduct;
+    private ArrayList<Integer> moves = new ArrayList<>();
     
-    public Path(ProductLine line){
-        this.fromProduct = line.getFromProduct();
-        this.toProduct = line.getToProduct();
-       moves = new ArrayList<>();
+    public Path(){
     }
 
     public void addMove(int move) {
        this.moves.add(move);
     }
 
+    public ArrayList<Integer> getMoves() {
+        return moves;
+    }
+    
+
     @Override
     public String toString() {
-        return "Path{" + "moves=" + moves + ", fromProduct=" + fromProduct.getId() + ", toProduct=" + toProduct.getId() + '}';
+        return "Path{" + "moves=" + moves + '}';
     }
     
     

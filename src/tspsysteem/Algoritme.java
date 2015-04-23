@@ -22,5 +22,5 @@ public abstract class Algoritme {
     public String getName() {
         return name;
     }
-    public abstract ArrayList<Integer> calculateRoute();  
+    public abstract Route calculateRoute();  
 }

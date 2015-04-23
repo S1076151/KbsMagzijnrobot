@@ -18,7 +18,7 @@ public class TSP {
         Locations positions = new Locations(wareHouse);
         Settings settings = new Settings(positions); //moet settings dialoog opene in constructor
         System.out.println(positions.toString());
-        algoritme = new AlgoritmeVE("Ve", positions);
+        algoritme = new AlgoritmeVEv2("Ve", positions);
         switch (settings.getSetting()) {
                 case 0: //VE
                         

@@ -27,7 +27,6 @@ public class Locations {
     }
     
     public void randomizePos(){
-        positions.add(new Product(-1,0,0));
         Random rand = new Random();
         for (int i = 0; i < amountProducts; i++) {
         int x = rand.nextInt(wareHouse.getxSize()) + 0;

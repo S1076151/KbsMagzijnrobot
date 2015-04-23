@@ -1,55 +1,83 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+//WERKT NIET MEER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 package tspsysteem;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author Tyrone
- */
 public class AlgoritmeVE extends Algoritme {
-    
+    //-----uitvoering alleen par1
+    //4: 24         0
+    //5: 120        0    
+    //6: 720        0
+    //7: 5040       0
+    //8: 40320      0
+    //9: 362880     0
+    //10: 3628800   1
+    //11: 39916800  1
     private Locations positions;
+    private ArrayList<Product> positions2;
     private final int up = 1;
     private final int right = 2;
     private final int down = 3;
     private final int left = 4;
     private final int pickUp  = 5;
-    private String[] lines;
+    private ArrayList<ArrayList<Product>> allRoutes;
+    private ArrayList<ProductLine> allLines = new ArrayList<>();
+    private ArrayList<ArrayList<Route>> allPaths;
+    private int stopInt = 3628800;
+    private int garbage = 0;
 
     public AlgoritmeVE(String name, Locations positions){
         super(name);
         this.positions = positions;
-        lines = new String[positions.getPositions().size()];
+        this.positions2 = positions.getPositions();
+        allRoutes = new ArrayList<>();
     }
 
     @Override
     public ArrayList<Integer> calculateRoute() {
-       ArrayList<Path> allPaths = new ArrayList<>();
-       for (Product p1: positions.getPositions()){
-           for (Product p2: positions.getPositions()){
-                   allPaths.add(CalculatePath(p1,p2));
-           }
-               
-       }
-       System.out.println(allPaths.toString());
+
+        ArrayList<Integer> intRoute = new ArrayList<>();
+        ArrayList<Product> route = new ArrayList<>();
+        ArrayList<Product> products = new ArrayList<Product>(positions.getPositions());
+        calculatepart1(products,route);
        
        
-       ArrayList<Integer> route = new ArrayList<>();
-       return route;
+        System.out.println(allRoutes.size());
+       return intRoute;
     }
     
-    private Path CalculatePath(Product fromProduct, Product toProduct) {
-        ProductLine line = new ProductLine(fromProduct, toProduct);
-        Path path = new Path(line);
-        int x1 = fromProduct.getxPosition();
-        int y1 = fromProduct.getyPosition();
-        int x2 = toProduct.getxPosition();
-        int y2 = toProduct.getyPosition();
+    private void calculatepart1(ArrayList<Product> availableProducts, ArrayList<Product> route){
+        for (Product product:availableProducts){
+            if (availableProducts.size() > 1) {
+            ArrayList<Product> availableProductsClone = new ArrayList<>(availableProducts);
+            ArrayList<Product> routeClone = new ArrayList<>(route);
+            availableProductsClone.remove(product);
+            routeClone.add(product);
+            this.calculatepart1(availableProductsClone, routeClone);
+            availableProductsClone = null;
+            routeClone = null;
+            }
+            else {
+                route.add(product);
+                allRoutes.add(route);
+
+            }
+        }
+//        garbage++;
+//        if (garbage > 20000000) {
+//            garbage = 0;
+//            System.gc();
+//        }
+    }        
+    
+    private Path calculatePath(Product fromProduct, Product toProduct) {
+                Path path = new Path();
+        ProductLine productLine = new ProductLine(fromProduct, toProduct, path);
+
+        int x1 = productLine.getFromProduct().getxPosition();
+        int y1 = productLine.getFromProduct().getyPosition();
+        int x2 = productLine.getToProduct().getxPosition();
+        int y2 = productLine.getToProduct().getyPosition();
         while (x1 != x2) {
             if (x1 < x2) {
                 path.addMove(up);
