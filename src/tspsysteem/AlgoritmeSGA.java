@@ -9,6 +9,11 @@ package tspsysteem;
 import java.util.ArrayList;
 
 public class AlgoritmeSGA extends Algoritme{
+    private final int up = 1;
+    private final int right = 2;
+    private final int down = 3;
+    private final int left = 4;
+    private final int pickUp  = 5;
 
     public AlgoritmeSGA(String name,  Locations positions) {
         super(name);
@@ -16,7 +21,7 @@ public class AlgoritmeSGA extends Algoritme{
     }
     
     
-    
+    @Override
     public Route calculateRoute() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -52,8 +57,4 @@ public class AlgoritmeSGA extends Algoritme{
         return path;
     
     }
-
-    @Override
-
-    
 }
