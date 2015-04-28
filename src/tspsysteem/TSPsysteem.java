@@ -15,6 +15,7 @@ public class TSPsysteem {
     
     public static void main(String[] args) {   
         TSP tsp = new TSP();
+        TSPGUI gui = new TSPGUI();
         
         
         
