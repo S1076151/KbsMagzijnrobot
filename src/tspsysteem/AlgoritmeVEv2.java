@@ -34,8 +34,8 @@ public class AlgoritmeVEv2 extends Algoritme {
     private Route bestRoute;
     //private int stopInt = 3628800;
 
-    public AlgoritmeVEv2(String name, Locations positions){
-        super(name);
+    public AlgoritmeVEv2(String name, WareHouse magazijn, Locations positions){
+        super(name, magazijn);
         this.positions = positions;
         this.positions2 = positions.getPositions();
         
@@ -89,37 +89,37 @@ public class AlgoritmeVEv2 extends Algoritme {
         }
     }        
     
-    private Path calculatePath(Product fromProduct, Product toProduct) {
-        Path path = new Path();
-        int x1 = fromProduct.getxPosition();
-        int y1 = fromProduct.getyPosition();
-        int x2 = toProduct.getxPosition();
-        int y2 = toProduct.getyPosition();
-        while (x1 != x2) {
-            if (x1 < x2) {
-                path.addMove(up);
-                x1 ++;
-            }
-            else if (x1 > x2){
-                path.addMove(down);
-                x1 --;
-            }   
-        }
-                while (y1 != y2) {
-            if (y1 < y2) {
-                path.addMove(right);
-                y1 ++;
-            }
-            else if (y1 > y2){
-                path.addMove(left);
-                y1 --;
-            }   
-        }
-//          System.out.println(path.toString());
-        
-        return path;
-    
-    }
+//    private Path calculatePath(Product fromProduct, Product toProduct) {
+//        Path path = new Path();
+//        int x1 = fromProduct.getxPosition();
+//        int y1 = fromProduct.getyPosition();
+//        int x2 = toProduct.getxPosition();
+//        int y2 = toProduct.getyPosition();
+//        while (x1 != x2) {
+//            if (x1 < x2) {
+//                path.addMove(right);
+//                x1 ++;
+//            }
+//            else if (x1 > x2){
+//                path.addMove(left);
+//                x1 --;
+//            }   
+//        }
+//                while (y1 != y2) {
+//            if (y1 < y2) {
+//                path.addMove(up);
+//                y1 ++;
+//            }
+//            else if (y1 > y2){
+//                path.addMove(down);
+//                y1 --;
+//            }   
+//        }
+////          System.out.println(path.toString());
+//        
+//        return path;
+//    
+//    }
        
   
 }

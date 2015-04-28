@@ -16,7 +16,7 @@ public class Settings {
         this.positions = positions;
 //        OpenDialoog moet hier bij in en harde setting er uit
         this.setting = 0;
-        positions.setAmountProducts(9);
+        positions.setAmountProducts(15);
         positions.randomizePos();
     }
 
@@ -27,6 +27,7 @@ public class Settings {
     public void setSetting(int setting) {
         this.setting = setting;
     }
+    
     
     
     

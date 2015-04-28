@@ -14,11 +14,13 @@ public class TSP {
     private Algoritme algoritme;
     
     public TSP(){
-        WareHouse wareHouse = new WareHouse(10,10);
+        WareHouse wareHouse = new WareHouse(10, 10);
         Locations positions = new Locations(wareHouse);
         Settings settings = new Settings(positions); //moet settings dialoog opene in constructor
         System.out.println(positions.toString());
-        algoritme = new AlgoritmeVEv2("Ve", positions);
+//        algoritme = new AlgoritmeVEv2("Ve", positions);
+        algoritme = new AlgoritmeSGA("SGA", wareHouse, positions);
+//        algoritme = new AlgoritmeSSS("SSS", wareHouse,positions);
         switch (settings.getSetting()) {
                 case 0: //VE
                         
