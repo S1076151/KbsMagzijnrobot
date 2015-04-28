@@ -4,70 +4,55 @@
  * and open the template in the editor.
  */
 
-package tspsysteem;
 
+//SGA Warehouse(9,9)( = 10x10)
+//500       1s
+//1000       12s
+
+
+//SGA warehouse(99,99) ( = 100x100)
+//500           2s
+//1000          19s
+
+package tspsysteem;
 import java.util.ArrayList;
 
 public class AlgoritmeSGA extends Algoritme{
-    private final int up = 1;
-    private final int right = 2;
-    private final int down = 3;
-    private final int left = 4;
-    private final int pickUp  = 5;
+    private Locations positions;
     private ArrayList<ProductLine> allLines = new ArrayList<>();
-
-    public AlgoritmeSGA(String name,  Locations positions) {
-        super(name);
-        
+    private ArrayList<Integer> productsDoneId = new ArrayList<>();
+    private Route route= new Route();
+    private ProductLine dummyProductLine;
+    
+    public AlgoritmeSGA(String name, WareHouse magazijn,  Locations positions) {
+        super(name,magazijn);
+        this.positions = positions;
+        Product dummyProduct = new Product(-2,super.getWareHouse().getxSize(),super.getWareHouse().getySize());
+        dummyProductLine = new ProductLine(positions.getPositions().get(0),dummyProduct,calculatePath(positions.getPositions().get(0),dummyProduct));
     }
-    
-    public void calculatePart1() {
-        
-    }
-    
-    
     @Override
     public Route calculateRoute() {
         for (Product p1:positions.getPositions()){
             for (Product p2: positions.getPositions()){
                 if (!p1.equals(p2)){
-                    ProductLine line = new ProductLine(p1,p2, calculatePath(p1,p2));
-                    allLines.add(line);
+                    allLines.add(new ProductLine(p1,p2, calculatePath(p1,p2)));
                 }
             }
-            
         }
-    }
-    
-    private Path calculatePath(Product fromProduct, Product toProduct) {
-        Path path = new Path();
-        int x1 = fromProduct.getxPosition();
-        int y1 = fromProduct.getyPosition();
-        int x2 = toProduct.getxPosition();
-        int y2 = toProduct.getyPosition();
-        while (x1 != x2) {
-            if (x1 < x2) {
-                path.addMove(up);
-                x1 ++;
+        for (Product fromProduct:positions.getPositions()) {
+            ProductLine bestLine = dummyProductLine;
+            for (ProductLine line:allLines) {
+                if (line.getFromProduct().getId() == fromProduct.getId() && !productsDoneId.contains(line.getToProduct().getId())){
+                    Path newPath = calculatePath(fromProduct,line.getToProduct());
+                    if (bestLine.getPath().getMoves().size() > newPath.getMoves().size()) {
+                        bestLine = new ProductLine(fromProduct,line.getToProduct(),newPath);
+                    }
+                }   
             }
-            else if (x1 > x2){
-                path.addMove(down);
-                x1 --;
-            }   
+            productsDoneId.add(bestLine.getFromProduct().getId());
+            route.addLine(bestLine);
         }
-                while (y1 != y2) {
-            if (y1 < y2) {
-                path.addMove(right);
-                y1 ++;
-            }
-            else if (y1 > y2){
-                path.addMove(left);
-                y1 --;
-            }   
-        }
-//          System.out.println(path.toString());
-        
-        return path;
-    
+        System.out.println(route.getMovesAmount());
+        return route;
     }
 }
