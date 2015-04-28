@@ -6,6 +6,7 @@
 
 package tspsysteem;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,11 +25,6 @@ public class AlgoritmeVEv2 extends Algoritme {
     //11: 39916800  1
     private Locations positions;
     private ArrayList<Product> positions2;
-    private final int up = 1;
-    private final int right = 2;
-    private final int down = 3;
-    private final int left = 4;
-    private final int pickUp  = 5;
     //private ArrayList<ArrayList<Product>> allRoutes;
     private ArrayList<ProductLine> allLines = new ArrayList<>();
     private Route bestRoute;
@@ -72,6 +68,7 @@ public class AlgoritmeVEv2 extends Algoritme {
             for (ProductLine line:allLines) {
                 if (line.getFromProduct().getId() == fromProduct.getId() && line.getToProduct().getId() == toProduct.getId() ){
                     routeClone.addLine(line);
+                   allLines.remove(line);
                 }
             }
             if (availableProducts.size() > 1) {
@@ -79,7 +76,7 @@ public class AlgoritmeVEv2 extends Algoritme {
                 availableProductsClone.remove(toProduct);
                 this.calculatepart1(availableProductsClone, toProduct, routeClone);
                 availableProductsClone = null;
-                routeClone = null;
+//                routeClone = null;
             }
             else {
                 if (bestRoute.getMovesAmount() > routeClone.getMovesAmount()){
@@ -88,40 +85,6 @@ public class AlgoritmeVEv2 extends Algoritme {
             }
         }
     }        
-    
-//    private Path calculatePath(Product fromProduct, Product toProduct) {
-//        Path path = new Path();
-//        int x1 = fromProduct.getxPosition();
-//        int y1 = fromProduct.getyPosition();
-//        int x2 = toProduct.getxPosition();
-//        int y2 = toProduct.getyPosition();
-//        while (x1 != x2) {
-//            if (x1 < x2) {
-//                path.addMove(right);
-//                x1 ++;
-//            }
-//            else if (x1 > x2){
-//                path.addMove(left);
-//                x1 --;
-//            }   
-//        }
-//                while (y1 != y2) {
-//            if (y1 < y2) {
-//                path.addMove(up);
-//                y1 ++;
-//            }
-//            else if (y1 > y2){
-//                path.addMove(down);
-//                y1 --;
-//            }   
-//        }
-////          System.out.println(path.toString());
-//        
-//        return path;
-//    
-//    }
-       
-  
 }
     
     

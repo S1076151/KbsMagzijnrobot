@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Tyrone
  */
-public abstract class Algoritme {
+public abstract class AlgoritmeNOT {
     private final int up = 1;
     private final int right = 2;
     private final int down = 3;
@@ -20,9 +20,8 @@ public abstract class Algoritme {
     private final int pickUp  = 5;
     private String name;
     private WareHouse wareHouse;
-    private Path path;
     
-    public Algoritme(String name, WareHouse wareHouse){
+    public AlgoritmeNOT(String name, WareHouse wareHouse){
         this.name = name;
         this.wareHouse = wareHouse;
     }
@@ -39,44 +38,35 @@ public abstract class Algoritme {
     public abstract Route calculateRoute();  
     
     protected Path calculatePath(Product fromProduct, Product toProduct) {
-        path = new Path();
+        Path path = new Path();
         int x1 = fromProduct.getxPosition();
         int y1 = fromProduct.getyPosition();
         int x2 = toProduct.getxPosition();
         int y2 = toProduct.getyPosition();
-        calculatePathPartX(x1,x2);
-        calculatePathPartY(y1,y2);
-//          System.out.println(path.toString());
-        
-        return path;
-    
-    }
-    
-    private void calculatePathPartX(int x1, int x2){
-        if (x1 != x2) {
+        while (x1 != x2) {
             if (x1 < x2) {
                 path.addMove(right);
                 x1 ++;
             }
-            else {
+            else if (x1 > x2){
                 path.addMove(left);
                 x1 --;
-            }
-            calculatePathPartX(x1,x2);
+            }   
         }
-    }
-    private void calculatePathPartY(int y1, int y2){
-        if (y1 != y2){
+                while (y1 != y2) {
             if (y1 < y2) {
                 path.addMove(up);
                 y1 ++;
             }
-            else {
+            else if (y1 > y2){
                 path.addMove(down);
                 y1 --;
-            }
-            calculatePathPartY(y1,y2);
+            }   
         }
+//          System.out.println(path.toString());
+        
+        return path;
+    
     }
     
 }

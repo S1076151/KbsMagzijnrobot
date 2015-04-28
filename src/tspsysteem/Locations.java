@@ -8,6 +8,10 @@ public class Locations {
     private ArrayList<Product> positions;
     private int amountProducts;
     private WareHouse wareHouse;
+
+    public WareHouse getWareHouse() {
+        return wareHouse;
+    }
     
     public Locations(WareHouse wareHouse){
         this.wareHouse = wareHouse;

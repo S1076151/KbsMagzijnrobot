@@ -5,24 +5,31 @@
  */
 
 
-//SGA Warehouse(9,9)( = 10x10)
-//500      2s
-//1000      15s
+//SGAIT Warehouse(9,9)( = 10x10)
+//500       5s
+//1000      1m 8s
 
 
-//SGA warehouse(99,99) ( = 100x100)
+//SGAIT warehouse(99,99) ( = 100x100)
 
 package tspsysteem;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class AlgoritmeSGA extends Algoritme{
+
+////
+//
+//  ALGORITME IS NIET BETER, TENMINSTE NIET tot en met 1000 producten ivm normale SGA
+//
+//
+public class AlgoritmeSGAIterator extends Algoritme{
     private Locations positions;
     private ArrayList<ProductLine> allLines = new ArrayList<>();
     private ArrayList<Integer> productsDoneId = new ArrayList<>();
     private Route route= new Route();
     private ProductLine dummyProductLine;
     
-    public AlgoritmeSGA(String name, WareHouse magazijn,  Locations positions) {
+    public AlgoritmeSGAIterator(String name, WareHouse magazijn,  Locations positions) {
         super(name,magazijn);
         this.positions = positions;
         Product dummyProduct = new Product(-2,super.getWareHouse().getxSize(),super.getWareHouse().getySize());
@@ -39,13 +46,15 @@ public class AlgoritmeSGA extends Algoritme{
         }
         for (Product fromProduct:positions.getPositions()) {
             ProductLine bestLine = dummyProductLine;
-            for (ProductLine line:allLines) {
-                if (line.getFromProduct().getId() == fromProduct.getId() && !productsDoneId.contains(line.getToProduct().getId())){
-                    Path newPath = calculatePath(fromProduct,line.getToProduct());
+            for (Iterator<ProductLine> line = allLines.iterator();line.hasNext();){
+                ProductLine pl = line.next();
+                if (pl.getFromProduct().getId() == fromProduct.getId() && !productsDoneId.contains(pl.getToProduct().getId())){
+                    Path newPath = calculatePath(fromProduct,pl.getToProduct());
                     if (bestLine.getPath().getMoves().size() > newPath.getMoves().size()) {
-                        bestLine = new ProductLine(fromProduct,line.getToProduct(),newPath);
+                        bestLine = new ProductLine(fromProduct,pl.getToProduct(),newPath);
                     }
-                }   
+                    line.remove();
+                }  
             }
             productsDoneId.add(bestLine.getFromProduct().getId());
             route.addLine(bestLine);
@@ -53,5 +62,4 @@ public class AlgoritmeSGA extends Algoritme{
         System.out.println(route.getMovesAmount());
         return route;
     }
-
 }
